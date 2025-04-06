@@ -1,7 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 import * as FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import { Landing } from './Landing';
 import { Login } from './Login';
@@ -9,13 +8,10 @@ import { Login } from './Login';
 export default function App() {
   const [visitorId, setVisitorId] = useState(null);
   const [serverData, setServerData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const { isLoading, error } = useVisitorData(
-    { extendedResult: true },
-    { immediate: true }
-  );
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchSealedResult = async () => {
       try {
         const fp = await FingerprintJS.load({
@@ -38,25 +34,34 @@ export default function App() {
         }
         const responseData = await response.json();
         setServerData(responseData);
+        const idData = responseData?.data?.products?.identification?.data;
+        setVisitorId(idData?.visitorId);
       } catch (err) {
         console.error('Failed to complete Sealed Client Results flow:', err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchSealedResult();
   }, []);
 
   return (
-    <Router>
-      <nav>
-        <header>
-          <img src="lumon_logo_wordmark.svg" alt="lumon-logo" />
-          <button>Sign Out</button>
-        </header>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
+    <>
+      {loading ? (
+        <p>loading...</p>
+      ) : (
+        <Router>
+          <nav>
+            <header>
+              <img src="lumon_logo_wordmark.svg" alt="lumon-logo" />
+            </header>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Landing serverData={serverData} />} />
+            <Route path="/login" element={<Login visitorId={visitorId} />} />
+          </Routes>
+        </Router>
+      )}
+    </>
   );
 }
