@@ -26,7 +26,6 @@ button {
   display: grid;
   justify-content: center;
   align-items: center;
-  border: 2px solid ivory;
   place-items: center;
 }
 
@@ -47,7 +46,6 @@ button {
 
 .data-container {
   display: grid;
-  border: 2px solid navy;
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
 }
