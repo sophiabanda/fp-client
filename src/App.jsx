@@ -1,14 +1,16 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { Router, Route, Routes, Link, BrowserRouter } from 'react-router-dom';
 import * as FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import { Landing } from './Landing';
 import { Login } from './Login';
+import { Nav } from './Nav';
 
 export default function App() {
   const [visitorId, setVisitorId] = useState(null);
   const [serverData, setServerData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -48,19 +50,21 @@ export default function App() {
   return (
     <>
       {loading ? (
-        <p>loading...</p>
+        <p>Loading...</p>
       ) : (
-        <Router>
-          <nav>
-            <header>
-              <img src="lumon_logo_wordmark.svg" alt="lumon-logo" />
-            </header>
-          </nav>
+        <BrowserRouter>
+          <Nav />
           <Routes>
-            <Route path="/" element={<Landing serverData={serverData} />} />
-            <Route path="/login" element={<Login visitorId={visitorId} />} />
+            {user ? (
+              <Route
+                path="/welcome"
+                element={<Landing serverData={serverData} />}
+              ></Route>
+            ) : (
+              <Route path="/" element={<Login />}></Route>
+            )}
           </Routes>
-        </Router>
+        </BrowserRouter>
       )}
     </>
   );

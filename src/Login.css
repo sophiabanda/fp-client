@@ -1,5 +1,20 @@
-body {
+html {
   background-color: rgb(251, 219, 197);
   color: rgb(44, 39, 39);
   font-family: 'Lucida Console', monospace;
+  height: 100%;
+}
+
+form {
+  border: 2px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  width: 20em;
+  height: 2em;
+  border-radius: 5px;
+  margin: 20px;
 }
