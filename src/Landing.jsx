@@ -1,12 +1,10 @@
 import './Landing.css';
 
 export function Landing({ serverData }) {
-  // Check if the serverData is not available and show a loading message
   if (!serverData) {
     return <p>Loading...</p>;
   }
 
-  // Once the serverData is available, safely access its properties
   const idData = serverData?.data?.products?.identification?.data;
   const identification = serverData?.data?.products?.identification;
   const visitorId = idData?.visitorId;
