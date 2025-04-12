@@ -6,8 +6,8 @@ html {
 }
 
 form {
-  border: 2px solid green;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -17,4 +17,15 @@ input {
   height: 2em;
   border-radius: 5px;
   margin: 20px;
+}
+
+#login-button {
+  min-width: 50px;
+}
+
+#status {
+  margin: 50px;
+  color: rgb(88, 45, 45);
+  font-size: 1.2em;
+  justify-self: center;
 }
