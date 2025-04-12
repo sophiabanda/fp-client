@@ -53,7 +53,7 @@ export default function App() {
         <p>Loading...</p>
       ) : (
         <BrowserRouter>
-          <Nav />
+          <Nav user={user} />
           <Routes>
             {user ? (
               <Route

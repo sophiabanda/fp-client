@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 export function Login({ fingerprint }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [trustDevice, setTrustDevice] = useState(false);
+  const [twoFA, setTwoFA] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
