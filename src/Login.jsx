@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 export function Login({ visitorId, setUser }) {
   const [username, setUsername] = useState('');
@@ -60,14 +61,12 @@ export function Login({ visitorId, setUser }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label>
-            <input
-              type="checkbox"
-              checked={trustDevice}
-              onChange={() => setTrustDevice(!trustDevice)}
-            />
-            Trust This Device
-          </label>
+          <input
+            type="checkbox"
+            checked={trustDevice}
+            onChange={() => setTrustDevice(!trustDevice)}
+          />
+          <label>Trust This Device</label>
           <button type="submit">Login</button>
         </form>
       ) : (

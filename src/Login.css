@@ -13,10 +13,14 @@ form {
 }
 
 input {
-  width: 20em;
-  height: 2em;
+  width: 50em;
+  height: 3em;
   border-radius: 5px;
   margin: 20px;
+}
+
+#checkbox {
+  height: 2em;
 }
 
 #login-button {
@@ -28,4 +32,9 @@ input {
   color: rgb(88, 45, 45);
   font-size: 1.2em;
   justify-self: center;
+}
+
+[type='checkbox'] {
+  opacity: 0.5;
+  background: green;
 }
