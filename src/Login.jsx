@@ -62,6 +62,7 @@ export function Login({ visitorId, setUser }) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input
+            id="checkbox"
             type="checkbox"
             checked={trustDevice}
             onChange={() => setTrustDevice(!trustDevice)}
