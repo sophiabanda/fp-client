@@ -51,14 +51,20 @@ export function Landing({ serverData }) {
           <span>Incognito:</span>
           <br /> {incognito ? 'True' : 'False'}
         </div>
+
         <div
           style={{
             backgroundColor: highActivity ? 'lightcoral' : 'aquamarine',
           }}
         >
-          <span>High Activity:</span>
-          <br /> {highActivity ? 'True' : 'False'}
+          <span>
+            Click here to <br />
+            <a href="https://lumon-industries.com/" target="_blank">
+              get to work.
+            </a>
+          </span>
         </div>
+
         <div
           style={{
             backgroundColor: devTools ? 'lightcoral' : 'aquamarine',

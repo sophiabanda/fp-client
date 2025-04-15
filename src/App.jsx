@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Router, Route, Routes, Link, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
 import * as FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import { Landing } from './Landing';
 import { Login } from './Login';
@@ -55,14 +55,16 @@ export default function App() {
         <BrowserRouter>
           <Nav user={user} />
           <Routes>
-            {user ? (
-              <Route
-                path="/welcome"
-                element={<Landing serverData={serverData} />}
-              ></Route>
-            ) : (
-              <Route path="/" element={<Login />}></Route>
-            )}
+            <Route
+              path="/"
+              element={<Login setUser={setUser} visitorId={visitorId} />}
+            />
+            <Route
+              path="/welcome"
+              element={
+                user ? <Landing serverData={serverData} /> : <Navigate to="/" />
+              }
+            />
           </Routes>
         </BrowserRouter>
       )}

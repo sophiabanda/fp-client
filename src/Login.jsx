@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
@@ -8,14 +8,23 @@ export function Login({ visitorId, setUser }) {
   const [trustDevice, setTrustDevice] = useState(false);
   const [show2FA, setShow2FA] = useState(false);
   const [code, setCode] = useState('');
+  const [pendingTrust, setPendingTrust] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const isTrusted = localStorage.getItem(`trusted_${visitorId}`) === 'true';
+    if (isTrusted) {
+      setUser(true);
+      navigate('/welcome');
+    }
+  }, [visitorId, navigate, setUser]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     const response = await fetch('http://localhost:5001/login', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password, visitorId }),
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -24,21 +33,34 @@ export function Login({ visitorId, setUser }) {
       return;
     }
 
-    const isTrusted = localStorage.getItem(`trusted_${visitorId}`);
-    if (isTrusted) {
+    const result = await response.json();
+    if (result.idMatch) {
       setUser(true);
       navigate('/welcome');
     } else {
+      setPendingTrust(true);
       setShow2FA(true);
-    }
-
-    if (trustDevice && visitorId) {
-      localStorage.setItem(`trusted_${visitorId}`, 'true');
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
+    console.log('🔍 handleVerify called');
     if (code === '123456') {
+      if (trustDevice && pendingTrust) {
+        const trustRes = await fetch('http://localhost:5001/trust-device', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, visitorId }),
+        });
+
+        if (trustRes.ok) {
+          console.log('Storing trusted device:', visitorId);
+          localStorage.setItem(`trusted_${visitorId}`, 'true');
+        } else {
+          console.warn('Failed to trust device');
+        }
+      }
+
       setUser(true);
       navigate('/welcome');
     } else {
@@ -67,7 +89,7 @@ export function Login({ visitorId, setUser }) {
             checked={trustDevice}
             onChange={() => setTrustDevice(!trustDevice)}
           />
-          <label>Trust This Device</label>
+          <label htmlFor="checkbox">Trust This Device</label>
           <button type="submit">Login</button>
         </form>
       ) : (
