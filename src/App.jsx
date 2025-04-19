@@ -47,13 +47,19 @@ export default function App() {
     fetchSealedResult();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(false);
+    alert(`You've been logged out.`);
+  };
+
   return (
     <>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <BrowserRouter>
-          <Nav user={user} />
+          <Nav handleLogout={handleLogout} user={user} />
           <Routes>
             <Route
               path="/"
