@@ -12,7 +12,6 @@ export function Landing({ serverData }) {
   const ip = idData?.ip;
   const request = idData?.requestId;
   const vpn = identification?.vpn?.data?.result;
-  const highActivity = serverData?.data?.products?.highActivity?.data?.result;
   const devTools = serverData?.data?.products?.developerTools?.data?.result;
   const incognito = serverData?.data?.products?.incognito?.data?.result;
 
@@ -52,11 +51,7 @@ export function Landing({ serverData }) {
           <br /> {incognito ? 'True' : 'False'}
         </div>
 
-        <div
-          style={{
-            backgroundColor: highActivity ? 'lightcoral' : 'aquamarine',
-          }}
-        >
+        <div>
           <span>
             Click here to <br />
             <a href="https://lumon-industries.com/" target="_blank">
