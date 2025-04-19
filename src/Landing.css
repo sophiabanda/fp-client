@@ -17,11 +17,6 @@ img {
   align-self: self-start;
 }
 
-button {
-  width: 10vw;
-  height: 30px;
-}
-
 #container {
   display: grid;
   justify-content: center;
@@ -70,8 +65,17 @@ button {
   box-shadow: 5px 5px 2px rgb(159, 119, 119);
   margin-right: 20px;
   font-size: 80%;
-  max-width: 70px;
+  width: 10vw;
+  height: 30px;
   margin: 20px;
+}
+
+button:hover {
+  background-color: white;
+}
+
+button:active {
+  background-color: rgb(212, 200, 200);
 }
 
 .data-container div:hover {
