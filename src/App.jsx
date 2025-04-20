@@ -10,7 +10,10 @@ export default function App() {
   const [visitorId, setVisitorId] = useState(null);
   const [serverData, setServerData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : false;
+  });
 
   useEffect(() => {
     setLoading(true);
@@ -47,8 +50,13 @@ export default function App() {
     fetchSealedResult();
   }, []);
 
+  const handleLogin = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem('user');
     setUser(false);
     alert(`You've been logged out.`);
   };
@@ -63,7 +71,7 @@ export default function App() {
           <Routes>
             <Route
               path="/"
-              element={<Login setUser={setUser} visitorId={visitorId} />}
+              element={<Login setUser={handleLogin} visitorId={visitorId} />}
             />
             <Route
               path="/welcome"

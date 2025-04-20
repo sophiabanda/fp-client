@@ -11,14 +11,6 @@ export function Login({ visitorId, setUser }) {
   const [pendingTrust, setPendingTrust] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const isTrusted = localStorage.getItem(`trusted_${visitorId}`) === 'true';
-    if (isTrusted) {
-      setUser(true);
-      navigate('/welcome');
-    }
-  }, [visitorId, navigate, setUser]);
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -29,8 +21,7 @@ export function Login({ visitorId, setUser }) {
     });
 
     if (!response.ok) {
-      alert('Login failed');
-      return;
+      throw new Error('Login failed');
     }
 
     const result = await response.json();
@@ -44,7 +35,6 @@ export function Login({ visitorId, setUser }) {
   };
 
   const handleVerify = async () => {
-    console.log('🔍 handleVerify called');
     if (code === '123456') {
       if (trustDevice && pendingTrust) {
         const trustRes = await fetch('http://localhost:5001/trust-device', {
@@ -53,10 +43,7 @@ export function Login({ visitorId, setUser }) {
           body: JSON.stringify({ username, visitorId }),
         });
 
-        if (trustRes.ok) {
-          console.log('Storing trusted device:', visitorId);
-          localStorage.setItem(`trusted_${visitorId}`, 'true');
-        } else {
+        if (!trustRes.ok) {
           console.warn('Failed to trust device');
         }
       }
