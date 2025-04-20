@@ -26,13 +26,16 @@ export default function App() {
         const identification = await fp.get({ cache: true });
         const sealed = identification.sealedResult;
 
-        const response = await fetch('http://localhost:5001/sealed', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ sealed }),
-        });
+        const response = await fetch(
+          'https://fp-backend-dqpa.onrender.com/sealed',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ sealed }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`Server responded with status: ${response.status}`);
