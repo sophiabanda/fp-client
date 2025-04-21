@@ -67,7 +67,7 @@ export default function App() {
   return (
     <>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loader"></div>
       ) : (
         <BrowserRouter>
           <Nav handleLogout={handleLogout} user={user} />
