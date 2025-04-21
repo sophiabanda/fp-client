@@ -14,6 +14,7 @@ export function Landing({ serverData }) {
   const vpn = identification?.vpn?.data?.result;
   const devTools = serverData?.data?.products?.developerTools?.data?.result;
   const incognito = serverData?.data?.products?.incognito?.data?.result;
+  const highActivity = serverData?.data?.products?.highActivity?.data?.result;
 
   return (
     <div id="container">
@@ -50,16 +51,6 @@ export function Landing({ serverData }) {
           <span>Incognito:</span>
           <br /> {incognito ? 'True' : 'False'}
         </div>
-
-        <div>
-          <span>
-            Click here to <br />
-            <a href="https://lumon-industries.com/" target="_blank">
-              get to work.
-            </a>
-          </span>
-        </div>
-
         <div
           style={{
             backgroundColor: devTools ? 'lightcoral' : 'aquamarine',
@@ -67,6 +58,22 @@ export function Landing({ serverData }) {
         >
           <span>Developer Tools:</span>
           <br /> {devTools ? 'True' : 'False'}
+        </div>
+        <div
+          style={{
+            backgroundColor: highActivity ? 'lightcoral' : 'aquamarine',
+          }}
+        >
+          <span>Too Frequent Flyer:</span>
+          <br /> {highActivity ? 'True' : 'False'}
+        </div>
+        <div>
+          <span>
+            Click here to <br />
+            <a href="https://lumon-industries.com/" target="_blank">
+              get to work.
+            </a>
+          </span>
         </div>
       </div>
     </div>

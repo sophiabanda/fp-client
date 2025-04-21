@@ -42,7 +42,7 @@ img {
 .data-container {
   display: grid;
   place-items: center;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .data-container div {
@@ -55,6 +55,7 @@ img {
   box-shadow: 10px 10px 2px rgb(159, 119, 119);
   text-align: center;
   transition: 500ms;
+  font-size: clamp(0.8em, 1.1vw, 2vw);
 }
 
 button {
@@ -109,4 +110,16 @@ a:hover {
 a:active {
   text-decoration: none;
   color: rgb(44, 39, 39);
+}
+
+@media (min-width: 770px) and (max-width: 1120px) {
+  .data-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 350px) and (max-width: 770px) {
+  .data-container {
+    grid-template-columns: auto;
+  }
 }
