@@ -16,13 +16,10 @@ export default function App() {
   });
 
   useEffect(() => {
-    setLoading(true);
     const fetchSealedResult = async () => {
+      setLoading(true);
       try {
-        const fp = await FingerprintJS.load({
-          apiKey: '6mtUaNcPcmQORr5lg6wm',
-        });
-
+        const fp = await FingerprintJS.load({ apiKey: '6mtUaNcPcmQORr5lg6wm' });
         const identification = await fp.get({ cache: true });
         const sealed = identification.sealedResult;
 
@@ -30,9 +27,7 @@ export default function App() {
           'https://fp-backend-dqpa.onrender.com/sealed',
           {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sealed }),
           }
         );
@@ -40,6 +35,7 @@ export default function App() {
         if (!response.ok) {
           throw new Error(`Server responded with status: ${response.status}`);
         }
+
         const responseData = await response.json();
         setServerData(responseData);
         const idData = responseData?.data?.products?.identification?.data;
@@ -50,6 +46,7 @@ export default function App() {
         setLoading(false);
       }
     };
+
     fetchSealedResult();
   }, []);
 
@@ -65,26 +62,32 @@ export default function App() {
   };
 
   return (
-    <>
-      {loading ? (
-        <div className="loader"></div>
-      ) : (
-        <BrowserRouter>
-          <Nav handleLogout={handleLogout} user={user} />
-          <Routes>
-            <Route
-              path="/"
-              element={<Login setUser={handleLogin} visitorId={visitorId} />}
-            />
-            <Route
-              path="/welcome"
-              element={
-                user ? <Landing serverData={serverData} /> : <Navigate to="/" />
-              }
-            />
-          </Routes>
-        </BrowserRouter>
-      )}
-    </>
+    <BrowserRouter>
+      <Nav handleLogout={handleLogout} user={user} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            loading ? (
+              <div className="loader"></div>
+            ) : (
+              <Login setUser={handleLogin} visitorId={visitorId} />
+            )
+          }
+        />
+        <Route
+          path="/welcome"
+          element={
+            loading ? (
+              <div className="loader"></div>
+            ) : user ? (
+              <Landing serverData={serverData} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
