@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Route, Routes, BrowserRouter, Navigate } from 'react-router-dom';
+import { Route, Routes, HashRouter, Navigate } from 'react-router-dom';
 import * as FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
 import { Landing } from './Landing';
 import { Login } from './Login';
@@ -62,7 +62,7 @@ export default function App() {
   };
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Nav user={user} />
       <Routes>
         <Route
@@ -88,6 +88,6 @@ export default function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
