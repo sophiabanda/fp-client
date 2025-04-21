@@ -1,6 +1,6 @@
 import './Landing.css';
 
-export function Landing({ serverData }) {
+export function Landing({ serverData, handleLogout, user }) {
   if (!serverData) {
     return <p>Loading...</p>;
   }
@@ -19,7 +19,7 @@ export function Landing({ serverData }) {
   return (
     <div id="container">
       <div className="welcome">
-        Thank you for your participation in this <br /> mysterious and important
+        We appreciate your contribution to this <br /> mysterious and important
         work.
       </div>
       <div className="data-container">
@@ -76,6 +76,9 @@ export function Landing({ serverData }) {
           </span>
         </div>
       </div>
+      <footer>
+        <button onClick={handleLogout}>Logout</button>
+      </footer>
     </div>
   );
 }

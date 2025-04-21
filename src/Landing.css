@@ -4,13 +4,6 @@ body {
   font-family: 'Lucida Console', monospace;
 }
 
-/* header {
-  height: 6rem;
-  width: 100vw;
-  display: flex;
-  justify-content: space-between;
-} */
-
 #container {
   display: grid;
   justify-content: center;
@@ -24,7 +17,7 @@ body {
   align-items: center;
   align-content: center;
   margin-bottom: 2rem;
-  padding: 3rem;
+  padding: 2rem;
   background-color: whitesmoke;
   border-radius: 20px;
   border: 1px rgb(159, 119, 119);

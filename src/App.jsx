@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <Nav handleLogout={handleLogout} user={user} />
+      <Nav user={user} />
       <Routes>
         <Route
           path="/"
@@ -76,12 +76,12 @@ export default function App() {
           }
         />
         <Route
-          path="/welcome"
+          path="/"
           element={
             loading ? (
               <div className="loader"></div>
             ) : user ? (
-              <Landing serverData={serverData} />
+              <Landing handleLogout={handleLogout} serverData={serverData} />
             ) : (
               <Navigate to="/" />
             )
