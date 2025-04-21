@@ -83,7 +83,7 @@ export default function App() {
             ) : user ? (
               <Landing handleLogout={handleLogout} serverData={serverData} />
             ) : (
-              <Navigate to="/" />
+              <Navigate to="/welcome" />
             )
           }
         />
