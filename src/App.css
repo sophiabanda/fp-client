@@ -2,14 +2,10 @@ body {
   background-color: rgb(251, 219, 197);
   color: rgb(44, 39, 39);
   font-family: 'Lucida Console', monospace;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .loader {
-  margin-top: 100px;
+  /* margin: 100px; */
   border: 16px solid #f3f3f3;
   border-top: 16px solid #ae8079;
   border-radius: 50%;

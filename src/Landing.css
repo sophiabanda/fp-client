@@ -4,18 +4,12 @@ body {
   font-family: 'Lucida Console', monospace;
 }
 
-header {
+/* header {
   height: 6rem;
   width: 100vw;
   display: flex;
   justify-content: space-between;
-}
-
-img {
-  width: 20vw;
-  opacity: 0.75;
-  align-self: self-start;
-}
+} */
 
 #container {
   display: grid;

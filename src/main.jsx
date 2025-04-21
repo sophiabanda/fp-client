@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
       loadOptions={{
         apiKey: '6mtUaNcPcmQORr5lg6wm',
         endpoint: [
-          'https://metrics.sophiabanda.work',
+          // 'https://metrics.sophiabanda.work',
           FingerprintJSPro.defaultEndpoint,
         ],
         scriptUrlPattern: [
