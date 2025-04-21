@@ -2,3 +2,9 @@ redirects:
   - source: /*
     destination: /index.html
     status: 200
+
+    services:
+  - type: static
+    name: fp-client
+    env: static
+    staticPublishPath: dist
