@@ -77,7 +77,9 @@ export function Landing({ serverData, handleLogout, user }) {
         </div>
       </div>
       <footer>
-        <button onClick={handleLogout}>Logout</button>
+        <button id="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
       </footer>
     </div>
   );

@@ -109,4 +109,8 @@ a:active {
   .data-container {
     grid-template-columns: auto;
   }
+
+  #logout-button {
+    width: 20vw;
+  }
 }
