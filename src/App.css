@@ -5,13 +5,15 @@ body {
 }
 
 .loader {
-  /* margin: 100px; */
   border: 16px solid #f3f3f3;
   border-top: 16px solid #ae8079;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
+  align-self: center;
+  justify-self: center;
+  margin-top: 20vh;
 }
 
 @keyframes spin {
