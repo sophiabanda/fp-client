@@ -43,7 +43,7 @@ export default function App() {
       } catch (err) {
         console.error('Failed to complete Sealed Client Results flow:', err);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     };
 
