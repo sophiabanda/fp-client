@@ -12,11 +12,11 @@ createRoot(document.getElementById('root')).render(
       loadOptions={{
         apiKey: '6mtUaNcPcmQORr5lg6wm',
         endpoint: [
-          // 'https://metrics.sophiabanda.work',
+          'https://sophiabanda.work/9m9M8557TfmVm4uZ/sN476M9TIiuVVhN3',
           FingerprintJSPro.defaultEndpoint,
         ],
         scriptUrlPattern: [
-          'https://metrics.sophiabanda.work/web/v<version>/<apiKey>/loader_v<loaderVersion>.js',
+          'https://sophiabanda.work/9m9M8557TfmVm4uZ/hkXCizJfrDYfctbV?apiKey=<apiKey>&version=<version>&loaderVersion=<loaderVersion>',
           FingerprintJSPro.defaultScriptUrlPattern,
         ],
       }}
