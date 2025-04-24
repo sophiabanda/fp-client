@@ -2,7 +2,7 @@ import './Landing.css';
 
 export function Landing({ serverData, handleLogout, user }) {
   if (!serverData) {
-    return <p>Loading...</p>;
+    return <div className="loader"></div>;
   }
 
   const idData = serverData?.data?.products?.identification?.data;
