@@ -1,12 +1,18 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Route, Routes, HashRouter, Navigate } from 'react-router-dom';
-import * as FingerprintJS from '@fingerprintjs/fingerprintjs-pro';
+import {
+  FpjsProvider,
+  useVisitorData,
+} from '@fingerprintjs/fingerprintjs-pro-react';
 import { Landing } from './Landing';
 import { Login } from './Login';
 import { Nav } from './Nav';
 
-export default function App() {
+function AppContent() {
+  const { data: visitorData, isLoading: fpLoading } = useVisitorData({
+    extendedResult: true,
+  });
   const [visitorId, setVisitorId] = useState(null);
   const [serverData, setServerData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,21 +20,18 @@ export default function App() {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : false;
   });
-
   useEffect(() => {
     const fetchSealedResult = async () => {
+      if (!visitorData?.sealedResult) return;
       setLoading(true);
-      try {
-        const fp = await FingerprintJS.load({ apiKey: '6mtUaNcPcmQORr5lg6wm' });
-        const identification = await fp.get({ cache: true });
-        const sealed = identification.sealedResult;
 
+      try {
         const response = await fetch(
           'https://fp-backend-dqpa.onrender.com/sealed',
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ sealed }),
+            body: JSON.stringify({ sealed: visitorData.sealedResult }),
           }
         );
 
@@ -46,9 +49,8 @@ export default function App() {
         setLoading(false);
       }
     };
-
     fetchSealedResult();
-  }, []);
+  }, [visitorData]);
 
   const handleLogin = (userData) => {
     setUser(userData);
@@ -60,7 +62,6 @@ export default function App() {
     setUser(false);
     alert(`You've been logged out.`);
   };
-
   return (
     <HashRouter>
       <Nav user={user} />
@@ -68,7 +69,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            loading ? (
+            loading || fpLoading ? (
               <div className="loader"></div>
             ) : (
               <Login setUser={handleLogin} visitorId={visitorId} />
@@ -78,7 +79,7 @@ export default function App() {
         <Route
           path="/welcome"
           element={
-            loading ? (
+            loading || fpLoading ? (
               <div className="loader"></div>
             ) : user ? (
               <Landing handleLogout={handleLogout} serverData={serverData} />
@@ -89,5 +90,12 @@ export default function App() {
         />
       </Routes>
     </HashRouter>
+  );
+}
+export default function App() {
+  return (
+    <FpjsProvider loadOptions={{ apiKey: '6mtUaNcPcmQORr5lg6wm' }}>
+      <AppContent />
+    </FpjsProvider>
   );
 }
