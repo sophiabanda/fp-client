@@ -5,11 +5,16 @@ import {
   FpjsProvider,
   useVisitorData,
 } from '@fingerprintjs/fingerprintjs-pro-react';
+
 import { Landing } from './Landing';
 import { Login } from './Login';
 import { Nav } from './Nav';
 
 function AppContent() {
+  const { data: visitorData, isLoading: fpLoading } = useVisitorData({
+    extendedResult: true,
+  });
+function App() {
   const { data: visitorData, isLoading: fpLoading } = useVisitorData({
     extendedResult: true,
   });
@@ -23,7 +28,9 @@ function AppContent() {
   useEffect(() => {
     const fetchSealedResult = async () => {
       if (!visitorData?.sealedResult) return;
+      if (!visitorData?.sealedResult) return;
       setLoading(true);
+
 
       try {
         const response = await fetch(
@@ -31,6 +38,7 @@ function AppContent() {
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sealed: visitorData.sealedResult }),
             body: JSON.stringify({ sealed: visitorData.sealedResult }),
           }
         );
@@ -50,6 +58,7 @@ function AppContent() {
       }
     };
     fetchSealedResult();
+  }, [visitorData]);
   }, [visitorData]);
 
   const handleLogin = (userData) => {
